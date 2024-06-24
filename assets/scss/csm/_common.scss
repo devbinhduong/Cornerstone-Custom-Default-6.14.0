@@ -1,0 +1,344 @@
+.background-overlay {
+    position: fixed;
+    z-index: 102;
+    visibility: hidden;
+    top: 0;
+    left: 0;
+    height: 100vh;
+    width: 100%;
+    opacity: 0;
+    background: rgba($color: #000000, $alpha: 0.4);
+    transition: opacity .3s ease .1s, visibility 0s linear .4s;
+
+    .openSearchDropdown2 &,
+    .has-activeNavPages &,
+    .openProductListingSidebar &,
+    .openSearchMobile &,
+    .openAuthSidebar &{
+        opacity: 1;
+        visibility: visible;
+        transition-duration: .3s, 0s;
+        transition-delay: .1s, 0s;
+    }
+}
+
+//
+// Hover Link
+// -----------------------------------------------------------------------------
+.hover-link {
+    position: relative;
+    text-decoration: none;
+    width: fit-content !important;
+
+    span {
+        transition: color .25s cubic-bezier(.215,.61,.355,1);
+    }
+
+    &::before {
+        content: "";
+        position: absolute;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        height: 1px;
+        background-color: currentColor;
+        transform: scaleX(0);
+        will-change: transform;
+        transition: transform .25s cubic-bezier(.215,.61,.355,1);
+    }
+        
+    &:hover::before {
+        transform: scaleX(1);
+    }
+}
+
+.hover-link-2 {
+    --link: currentColor;
+    --link-hover: currentColor;
+    display: inline;
+    text-decoration: none;
+    cursor: pointer;
+    padding: 0 0 5px;
+    color: var(--link);
+    background: linear-gradient(to right, currentColor, currentColor);
+    background-size: 100% 1px;
+    background-position: 50% 86%;
+    background-repeat: no-repeat;
+    transition: color .25s ease-in, background-size .25s ease-in;
+
+    &:hover {
+        color: currentColor;
+        background-size: 0% 1px;
+    }
+}
+
+//
+// Skeleton Loader
+// -----------------------------------------------------------------------------
+.skeleton-loader {
+    background: #f4f2f0;
+    background: linear-gradient(98deg, #f4f2f0 16%, #ffffff 32%, #f4f2f0 48%);
+    background-size: 200% 100%;
+    animation: skeleton-loading 4s infinite linear;
+}
+
+//
+// Product Skeleton Loader
+// -----------------------------------------------------------------------------
+.productSkeleton {
+    &__list {
+        display: flex;
+        @include flex-layout(1, 0px);
+        
+        @include smin-xs {
+            @include flex-layout(2, 20px);
+        }
+
+        @include smin-s {
+            @include flex-layout(3, 20px);
+        }
+
+        @include smin-m {
+            @include flex-layout(4, 32px);
+        }
+
+        &.no-wrap {
+            flex-wrap: nowrap;
+            overflow: hidden;
+
+            .productSkeleton__item {
+                min-width: 27%;
+
+                @include smax-m {
+                    min-width: 37%
+                }; 
+
+                @include smax-s {
+                    min-width: 70%
+                };
+            }
+        }
+    }
+
+    &__item {
+        padding: 15px;
+
+        @include smax-l {
+            &:nth-child(n + 5) {
+                display: none;
+            }
+        }
+
+        @include smax-m {
+            &:nth-child(n + 4) {
+                display: none;
+            }
+        }
+
+        @include smax-s {
+            &:nth-child(n + 3) {
+                display: none;
+            }
+        }
+
+        @include smax-xs {
+            &:nth-child(n + 2) {
+                display: none;
+            }
+        }
+    }
+
+    &__image {
+        width: 100%;
+        height: 230px;
+    }
+
+    &__title {
+        height: 34px;
+        margin-top: 12px;
+        margin-bottom: 12px;
+    }
+
+    &__price {
+        height: 39px;
+        margin-bottom: 30px;
+    }
+
+    &__rating {
+        height: 24px;
+        width: 85px;
+        margin-left: auto;
+        margin-right: auto;
+    }
+}
+
+.csm-animate {
+    [data-animate-order] {
+        opacity: 0;
+        will-change: transform, opacity;
+        backface-visibility: hidden;
+        transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+
+        &[data-ease-out-back] {
+            transition-timing-function: cubic-bezier(.175,.885,.32,1.275);
+        }
+    }
+
+    @for $i from 0 through 100 {
+        [data-animate-order='#{$i}'] {
+            transition-delay: 0.1s + $i * 0.02;
+            transition-duration: 0.3s + $i * 0.1;
+        }
+    }
+
+    &.animated {
+        [data-animate-order] {
+            opacity: 1;
+            transform: translate(0, 0) scale(1) rotate(0) perspective(0);
+            animation: none;
+
+            &[data-ease-out-quart] {
+                transition-timing-function: cubic-bezier(0.25,0.46,0.45,0.94);
+            }
+        }
+    }
+}
+
+.csmFadeUp {
+    transform: translateY(20px);
+}
+
+.csmFadeDown {
+    transform: translateY(-20px);
+}
+
+.csmFadeLeft {
+    transform: translateX(-20px);
+}
+
+.csmFadeRight {
+    transform: translateX(20px);
+}
+
+.csmFadeUpLeft {
+    transform: translate(-20px, 20px);
+}
+
+.csmFadeUpRight {
+    transform: translate(20px, 20px);
+}
+
+.csmFadeDownLeft {
+    transform: translate(-20px, -20px);
+}
+
+.csmFadeDownRight {
+    transform: translate(20px, -20px);
+}
+
+
+.csmZoomIn {
+    transform: scale(0.8);
+}
+
+.csmZoomInUp {
+    transform: translate3d(0,100px,0) scale(.6);
+}
+
+.csmZoomOut {
+    transform: scale(1.2);
+}
+
+.csmRotate {
+    transform: rotate(180deg);
+}
+
+.csmSlideLeft {
+    transform: translateX(-100%);
+}
+
+.csmSlideRight {
+    transform: translateX(100%);
+}
+
+.csmFade {
+    &.animated {
+        animation-name: animationFade;
+        animation-duration: 1s;
+        animation-fill-mode: both;
+        transition-timing-function: ease;
+
+        @for $i from 0 through 100 {
+            &[data-animate-order='#{$i}'] {
+                animation-delay: 0.15s + $i * 0.1;
+                transition-duration: 0.3s + $i * 0.1;
+            }
+        }
+    }
+}
+
+.csmImgIn {
+    opacity: 0;
+    transform: scale(1.06);
+    transition-duration: .5s;
+    transition-property: transform, opacity, -webkit-transform;
+}
+
+.image-loader {
+    overflow: hidden;
+
+    img {
+        transform: scale(1.06);
+        transform-origin: bottom center;
+        transition: transform .75s cubic-bezier(.215,.61,.355,1);
+        will-change: transform;
+        -webkit-backface-visibility: hidden;
+        backface-visibility: hidden;
+    }
+
+    .animated &,
+    .slick-active & {
+        img {
+            transform: scale(1);
+            transition: transform 1.5s cubic-bezier(.215,.61,.355,1);
+            transition-delay: 200ms;
+        }
+
+        @for $i from 0 through 100 {
+            &[data-animte-order='#{$i}'] {
+                img {
+                    transition-delay: 0.15s + $i * 0.15;
+                    transition-duration: 0.8s;
+                }
+            }
+        }
+    }
+}
+
+.csmMobileSlider {
+    --gap: 16px;
+    --offset: calc(var(--gap) * -1);
+
+    @include smax-s {
+        display: flex;
+        flex-flow: row nowrap;
+        justify-content: flex-start;
+        gap: 0;
+        margin: 0 var(--offset);
+        padding-left: var(--gap);
+        overflow-x: scroll;
+        overflow-y: hidden;
+        scroll-behavior: smooth;
+        scroll-snap-type: x mandatory;
+        scroll-padding: var(--gap);
+        scrollbar-width: none;
+
+        .item {
+            padding: 0;
+            flex: 0 0 auto;
+            width: calc(100% - 50px);
+            margin: 0 var(--gap) 0 0;
+            scroll-snap-align: start;
+        }
+    }; 
+}
